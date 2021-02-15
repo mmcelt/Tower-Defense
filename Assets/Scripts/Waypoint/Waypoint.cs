@@ -15,6 +15,8 @@ public class Waypoint : MonoBehaviour
 
 	#region Getters
 
+	public Vector3[] Points => _points;
+	public Vector3 CurrentPosition => _currentPosition;
 
 	#endregion
 
@@ -45,7 +47,7 @@ public class Waypoint : MonoBehaviour
 
 			if (i <_points.Length-1)
 			{
-				Gizmos.color = Color.yellow;
+				Gizmos.color = Color.black;
 				Gizmos.DrawLine(_points[i] + _currentPosition, _points[i + 1] + _currentPosition);
 			}
 		}
