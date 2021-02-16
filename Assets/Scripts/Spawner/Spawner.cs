@@ -15,7 +15,6 @@ public class Spawner : MonoBehaviour
 	[Header("General Settings")]
 	[SerializeField] SpawnModes _spawnMode = SpawnModes.Fixed;
 	[SerializeField] int _enemyCount = 10;
-	[SerializeField] GameObject _testGO;
 	[Header("Fixed Spawner")]
 	[SerializeField] float _delayBetweenSpawns;
 	[Header("Random Spawner")]
@@ -26,6 +25,7 @@ public class Spawner : MonoBehaviour
 	int _enemiesSpawned;
 
 	ObjectPooler _pooler;
+	Waypoint _waypoint;
 
 	#endregion
 
@@ -39,6 +39,7 @@ public class Spawner : MonoBehaviour
 	void Start() 
 	{
 		_pooler = GetComponent<ObjectPooler>();
+		_waypoint = GetComponent<Waypoint>();
 	}
 	
 	void Update() 
@@ -67,6 +68,9 @@ public class Spawner : MonoBehaviour
 	void SpawnEnemy()
 	{
 		GameObject newInstance = _pooler.GetInstanceFromPool();
+		Enemy enemy = newInstance.GetComponent<Enemy>();
+		enemy.Waypoint = _waypoint;
+		enemy.transform.localPosition = transform.position;
 		newInstance.SetActive(true);
 	}
 
