@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 	#region Fields & Properties
+
+	public static Action OnEndReached;
 
 	[SerializeField] float _moveSpeed = 3f;
 	[SerializeField] Waypoint _waypoint;
@@ -61,6 +64,15 @@ public class Enemy : MonoBehaviour
 		int lastWaypointIndex = _waypoint.Points.Length - 1;
 		if (_currentWaypointIndex < lastWaypointIndex)
 			_currentWaypointIndex++;
+		else
+		{
+			ReturnEnemyToPool();
+		}
+	}
+	void ReturnEnemyToPool()
+	{
+		OnEndReached?.Invoke();	//check for listeners, if there are some-fire the event
+		ObjectPooler.ReturnToPool(gameObject);
 	}
 	#endregion
 }
