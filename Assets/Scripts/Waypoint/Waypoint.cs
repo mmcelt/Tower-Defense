@@ -11,13 +11,17 @@ public class Waypoint : MonoBehaviour
 	Vector3 _currentPosition;
 	bool _gameStarted;
 
+	public Vector3[] Points => _points;
+	public Vector3 CurrentPosition => _currentPosition;
+
 	#endregion
 
 	#region Getters
 
-	public Vector3[] Points => _points;
-	public Vector3 CurrentPosition => _currentPosition;
-
+	public Vector3 GetWaypointPosition(int index)
+	{
+		return CurrentPosition + Points[index];
+	}
 	#endregion
 
 	#region Unity Methods
@@ -26,11 +30,6 @@ public class Waypoint : MonoBehaviour
 	{
 		_gameStarted = true;
 		_currentPosition = transform.position;
-	}
-	
-	void Update() 
-	{
-		
 	}
 
 	void OnDrawGizmos()
