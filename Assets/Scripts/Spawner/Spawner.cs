@@ -25,6 +25,8 @@ public class Spawner : MonoBehaviour
 	float _spawnTimer;
 	int _enemiesSpawned;
 
+	ObjectPooler _pooler;
+
 	#endregion
 
 	#region Getters
@@ -36,7 +38,7 @@ public class Spawner : MonoBehaviour
 
 	void Start() 
 	{
-
+		_pooler = GetComponent<ObjectPooler>();
 	}
 	
 	void Update() 
@@ -58,14 +60,14 @@ public class Spawner : MonoBehaviour
 
 	#region Public Methods
 
-
 	#endregion
 
 	#region Private Methods
 
 	void SpawnEnemy()
 	{
-		Instantiate(_testGO, transform.position, Quaternion.identity);
+		GameObject newInstance = _pooler.GetInstanceFromPool();
+		newInstance.SetActive(true);
 	}
 
 	float GetSpawnDelay()

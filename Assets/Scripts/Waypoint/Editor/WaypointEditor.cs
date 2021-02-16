@@ -37,14 +37,14 @@ public class WaypointEditor : Editor
 			textStyle.fontSize = 16;
 			textStyle.normal.textColor = Color.yellow;
 			Vector3 textAlignment = Vector3.down * 0.35f + Vector3.right * 0.35f;
-			Handles.Label(Waypoint.CurrentPosition + Waypoint.Points[i] + textAlignment, text: $"{i + 1}", textStyle);
+			Handles.Label(Waypoint.CurrentPosition + Waypoint.Points[i] + textAlignment, $"{i + 1}", textStyle);
 
 			EditorGUI.EndChangeCheck();
 
 			//update waypoint position as it is dragged around
 			if (EditorGUI.EndChangeCheck())
 			{
-				Undo.RecordObject(target, name: "Free Move Handle");
+				Undo.RecordObject(target, "Free Move Handle");
 				Waypoint.Points[i] = newWaypointPoint - Waypoint.CurrentPosition;
 			}
 		}
