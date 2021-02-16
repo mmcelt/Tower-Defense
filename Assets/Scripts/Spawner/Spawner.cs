@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
 	[Header("General Settings")]
 	[SerializeField] SpawnModes _spawnMode = SpawnModes.Fixed;
 	[SerializeField] int _enemyCount = 10;
+	[SerializeField] float _delayBetweenWaves = 1f;
 	[Header("Fixed Spawner")]
 	[SerializeField] float _delayBetweenSpawns;
 	[Header("Random Spawner")]
@@ -23,6 +24,7 @@ public class Spawner : MonoBehaviour
 
 	float _spawnTimer;
 	int _enemiesSpawned;
+	int _enemiesRemaining;
 
 	ObjectPooler _pooler;
 	Waypoint _waypoint;
@@ -36,10 +38,21 @@ public class Spawner : MonoBehaviour
 
 	#region Unity Methods
 
+	void OnEnable()
+	{
+		Enemy.OnEndReached += RecordEnemyEndReached;
+	}
+
+	void OnDisable()
+	{
+		Enemy.OnEndReached -= RecordEnemyEndReached;
+	}
+
 	void Start() 
 	{
 		_pooler = GetComponent<ObjectPooler>();
 		_waypoint = GetComponent<Waypoint>();
+		_enemiesRemaining = _enemyCount;
 	}
 	
 	void Update() 
@@ -70,6 +83,8 @@ public class Spawner : MonoBehaviour
 		GameObject newInstance = _pooler.GetInstanceFromPool();
 		Enemy enemy = newInstance.GetComponent<Enemy>();
 		enemy.Waypoint = _waypoint;
+		enemy.ResetEnemy();
+
 		enemy.transform.localPosition = transform.position;
 		newInstance.SetActive(true);
 	}
@@ -91,6 +106,23 @@ public class Spawner : MonoBehaviour
 		float randomTimer = Random.Range(_minRandomDelay, _maxRandomDelay);
 
 		return randomTimer;
+	}
+
+	void RecordEnemyEndReached()
+	{
+		_enemiesRemaining = Mathf.Max(_enemiesRemaining - 1, 0);
+		if (_enemiesRemaining == 0)
+		{
+			StartCoroutine(NextWaveRoutine());
+		}
+	}
+
+	IEnumerator NextWaveRoutine()
+	{
+		yield return new WaitForSeconds(_delayBetweenWaves);
+		_enemiesRemaining = _enemyCount;
+		_spawnTimer = 0f;
+		_enemiesSpawned = 0;
 	}
 	#endregion
 }

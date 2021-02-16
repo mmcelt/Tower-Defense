@@ -156,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnMode: 0
   _enemyCount: 10
+  _delayBetweenWaves: 1
   _delayBetweenSpawns: 0.5
   _minRandomDelay: 1
   _maxRandomDelay: 3

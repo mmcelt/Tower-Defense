@@ -44,7 +44,10 @@ public class Enemy : MonoBehaviour
 
 	#region Public Methods
 
-
+	public void ResetEnemy()
+	{
+		_currentWaypointIndex = 0;
+	}
 	#endregion
 
 	#region Private Methods
