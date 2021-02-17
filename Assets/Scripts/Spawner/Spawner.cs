@@ -110,7 +110,7 @@ public class Spawner : MonoBehaviour
 		return randomTimer;
 	}
 
-	void RecordEnemy()
+	void RecordEnemy(Enemy target)
 	{
 		_enemiesRemaining = Mathf.Max(_enemiesRemaining - 1, 0);
 		if (_enemiesRemaining == 0)

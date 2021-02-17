@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 474576855823895189}
   - component: {fileID: 4872254526655308851}
   - component: {fileID: 1158559440}
+  - component: {fileID: -615379718277580687}
   m_Layer: 0
   m_Name: Enemy_Red
   m_TagString: Untagged
@@ -134,6 +135,18 @@ MonoBehaviour:
   _barPosition: {fileID: 8473211138997237468}
   _initialHealth: 10
   _maxHealth: 10
+--- !u!114 &-615379718277580687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474576855823895188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cf388faf2bcee4fab8f0bf6e87ab5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9063969499054354253
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
 	#region Fields & Properties
 
-	public static Action OnEndReached;
+	public static Action<Enemy> OnEndReached;
 
 	[SerializeField] float _moveSpeed = 3f;
 
@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 	/// </summary>
 	public Vector3 CurrentPointPosition => Waypoint.GetWaypointPosition(_currentWaypointIndex);
 
+	public float MoveSpeed { get; set; }
 	public Waypoint Waypoint { get; set; }
 
 	EnemyHealth _enemyHealth;
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
 	void Start() 
 	{
 		_currentWaypointIndex = 0;
+		MoveSpeed = _moveSpeed;
 		_enemyHealth = GetComponent<EnemyHealth>();
 	}
 	
@@ -51,13 +53,23 @@ public class Enemy : MonoBehaviour
 	{
 		_currentWaypointIndex = 0;
 	}
+
+	public void StopMovement()
+	{
+		MoveSpeed = 0f;
+	}
+
+	public void ResumeMovement()
+	{
+		MoveSpeed = _moveSpeed;
+	}
 	#endregion
 
 	#region Private Methods
 
 	void Move()
 	{
-		transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, _moveSpeed * Time.deltaTime);
+		transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, MoveSpeed * Time.deltaTime);
 	}
 
 	bool CurrentPositionReached()
@@ -81,7 +93,7 @@ public class Enemy : MonoBehaviour
 	}
 	void EndpointReached()
 	{
-		OnEndReached?.Invoke(); //check for listeners, if there are some-fire the event
+		OnEndReached?.Invoke(this); //check for listeners, if there are some-fire the event
 		_enemyHealth.ResetHealth();
 		ObjectPooler.ReturnToPool(gameObject);
 	}

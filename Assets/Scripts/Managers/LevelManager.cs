@@ -33,11 +33,6 @@ public class LevelManager : MonoBehaviour
 	{
 		TotalLives = _lives;
 	}
-	
-	void Update() 
-	{
-		
-	}
 	#endregion
 
 	#region Public Methods
@@ -47,7 +42,7 @@ public class LevelManager : MonoBehaviour
 
 	#region Private Methods
 
-	void ReduceLives()
+	void ReduceLives(Enemy target)
 	{
 		TotalLives = Mathf.Max(TotalLives - 1, 0);
 		if (TotalLives == 0)

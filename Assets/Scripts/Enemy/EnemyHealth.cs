@@ -8,7 +8,8 @@ public class EnemyHealth : MonoBehaviour
 {
 	#region Fields & Properties
 
-	public static Action OnEnemyKilled;
+	public static Action<Enemy> OnEnemyKilled;
+	public static Action<Enemy> OnEnemyHit;
 
 	[SerializeField] GameObject _healthBarPrefab;
 	[SerializeField] Transform _barPosition;
@@ -17,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
 	public float CurrentHealth { get; set; }
 
 	Image _healthbar;
+	Enemy _enemy;
 
 	#endregion
 
@@ -29,6 +31,7 @@ public class EnemyHealth : MonoBehaviour
 
 	void Start() 
 	{
+		_enemy = GetComponent<Enemy>();
 		CreateHealthBar();
 		CurrentHealth = _initialHealth;
 		UpdateHealthbar();
@@ -51,6 +54,10 @@ public class EnemyHealth : MonoBehaviour
 		if (CurrentHealth == 0)
 		{
 			Die();
+		}
+		else
+		{
+			OnEnemyHit?.Invoke(_enemy);
 		}
 	}
 
@@ -79,9 +86,7 @@ public class EnemyHealth : MonoBehaviour
 
 	void Die()
 	{
-		ResetHealth();
-		OnEnemyKilled?.Invoke();
-		ObjectPooler.ReturnToPool(gameObject);
+		OnEnemyKilled?.Invoke(_enemy);
 	}
 	#endregion
 }

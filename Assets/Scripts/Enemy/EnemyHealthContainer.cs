@@ -20,15 +20,7 @@ public class EnemyHealthContainer : MonoBehaviour
 
 	#region Unity Methods
 
-	void Start() 
-	{
-		
-	}
-	
-	void Update() 
-	{
-		
-	}
+
 	#endregion
 
 	#region Public Methods
