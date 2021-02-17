@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
 
 	public Waypoint Waypoint { get; set; }
 
+	EnemyHealth _enemyHealth;
+
 	#endregion
 
 	#region Getters
@@ -32,6 +34,7 @@ public class Enemy : MonoBehaviour
 	void Start() 
 	{
 		_currentWaypointIndex = 0;
+		_enemyHealth = GetComponent<EnemyHealth>();
 	}
 	
 	void Update() 
@@ -73,12 +76,13 @@ public class Enemy : MonoBehaviour
 			_currentWaypointIndex++;
 		else
 		{
-			ReturnEnemyToPool();
+			EndpointReached();
 		}
 	}
-	void ReturnEnemyToPool()
+	void EndpointReached()
 	{
-		OnEndReached?.Invoke();	//check for listeners, if there are some-fire the event
+		OnEndReached?.Invoke(); //check for listeners, if there are some-fire the event
+		_enemyHealth.ResetHealth();
 		ObjectPooler.ReturnToPool(gameObject);
 	}
 	#endregion

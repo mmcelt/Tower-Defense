@@ -40,12 +40,14 @@ public class Spawner : MonoBehaviour
 
 	void OnEnable()
 	{
-		Enemy.OnEndReached += RecordEnemyEndReached;
+		Enemy.OnEndReached += RecordEnemy;
+		EnemyHealth.OnEnemyKilled += RecordEnemy;
 	}
 
 	void OnDisable()
 	{
-		Enemy.OnEndReached -= RecordEnemyEndReached;
+		Enemy.OnEndReached -= RecordEnemy;
+		EnemyHealth.OnEnemyKilled -= RecordEnemy;
 	}
 
 	void Start() 
@@ -108,7 +110,7 @@ public class Spawner : MonoBehaviour
 		return randomTimer;
 	}
 
-	void RecordEnemyEndReached()
+	void RecordEnemy()
 	{
 		_enemiesRemaining = Mathf.Max(_enemiesRemaining - 1, 0);
 		if (_enemiesRemaining == 0)

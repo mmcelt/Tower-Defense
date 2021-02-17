@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
 	#region Fields & Properties
+
+	public static Action OnEnemyKilled;
 
 	[SerializeField] GameObject _healthBarPrefab;
 	[SerializeField] Transform _barPosition;
@@ -50,6 +53,12 @@ public class EnemyHealth : MonoBehaviour
 			Die();
 		}
 	}
+
+	public void ResetHealth()
+	{
+		CurrentHealth = _initialHealth;
+		_healthbar.fillAmount = 1f;
+	}
 	#endregion
 
 	#region Private Methods
@@ -70,8 +79,8 @@ public class EnemyHealth : MonoBehaviour
 
 	void Die()
 	{
-		CurrentHealth = _initialHealth;
-		_healthbar.fillAmount = 1f;
+		ResetHealth();
+		OnEnemyKilled?.Invoke();
 		ObjectPooler.ReturnToPool(gameObject);
 	}
 	#endregion
