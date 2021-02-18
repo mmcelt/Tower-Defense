@@ -8,7 +8,12 @@ public class Turret : MonoBehaviour
 
 	[SerializeField] float _attackRange = 3f;
 
+	List<Enemy> _enemies;
+
 	bool _gameStarted;
+
+	public Enemy CurrentEnemyTarget { get; set; }
+
 	#endregion
 
 	#region Getters
@@ -21,11 +26,32 @@ public class Turret : MonoBehaviour
 	void Start() 
 	{
 		_gameStarted = true;
+		_enemies = new List<Enemy>();
 	}
 	
 	void Update() 
 	{
-		
+		GetCurrentEnemyTarget();
+		RotateTowardsTarget();
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Enemy"))
+		{
+			Enemy newEnemy = other.GetComponent<Enemy>();
+			_enemies.Add(newEnemy);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.CompareTag("Enemy"))
+		{
+			Enemy enemy = other.GetComponent<Enemy>();
+			if(_enemies.Contains(enemy))
+				_enemies.Remove(enemy);
+		}
 	}
 
 	void OnDrawGizmos()
@@ -46,6 +72,23 @@ public class Turret : MonoBehaviour
 
 	#region Private Methods
 
+	void GetCurrentEnemyTarget()
+	{
+		if (_enemies.Count <= 0)
+		{
+			CurrentEnemyTarget = null;
+			return;
+		}
+		CurrentEnemyTarget = _enemies[0];
+	}
 
+	void RotateTowardsTarget()
+	{
+		if (CurrentEnemyTarget == null) return;
+
+		Vector3 targetPosition = CurrentEnemyTarget.transform.position - transform.position;
+		float angle = Vector3.SignedAngle(transform.up, targetPosition, transform.forward);
+		transform.Rotate(0f, 0f, angle);
+	}
 	#endregion
 }
