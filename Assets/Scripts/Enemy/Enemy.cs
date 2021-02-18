@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
 
 	public float MoveSpeed { get; set; }
 	public Waypoint Waypoint { get; set; }
+	public EnemyHealth EnemyHealth { get; set; }
 
 	EnemyHealth _enemyHealth;
 	SpriteRenderer _sprite;
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
 		_currentWaypointIndex = 0;
 		MoveSpeed = _moveSpeed;
 		_lastPointPosition = transform.position;
+		EnemyHealth = _enemyHealth;
 	}
 	
 	void Update() 
