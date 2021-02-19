@@ -5,76 +5,78 @@ using UnityEngine;
 
 public class EnemyAnimations : MonoBehaviour
 {
-    private Animator _animator;
-    private Enemy _enemy;
-    private EnemyHealth _enemyHealth;
-    
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-        _enemy = GetComponent<Enemy>();
-        _enemyHealth = GetComponent<EnemyHealth>();
-    }
+	Animator _animator;
+	Enemy _enemy;
+	EnemyHealth _enemyHealth;
 
-    private void PlayHurtAnimation()
-    {
-        _animator.SetTrigger("Hurt");
-    }
+	#region Unity Callbacks
+	void OnEnable()
+	{
+		EnemyHealth.OnEnemyHit += EnemyHit;
+		EnemyHealth.OnEnemyKilled += EnemyDead;
+	}
 
-    private void PlayDieAnimation()
-    {
-        _animator.SetTrigger("Die");
-    }
+	void OnDisable()
+	{
+		EnemyHealth.OnEnemyHit -= EnemyHit;
+		EnemyHealth.OnEnemyKilled -= EnemyDead;
+	}
 
-    private float GetCurrentAnimationLenght()
-    {
-        float animationLenght = _animator.GetCurrentAnimatorStateInfo(0).length;
-        return animationLenght;
-    }
-    
-    private IEnumerator PlayHurt()
-    {
-        _enemy.StopMovement();
-        PlayHurtAnimation();
-        yield return new WaitForSeconds(GetCurrentAnimationLenght() + 0.3f);
-        _enemy.ResumeMovement();
-    }
+	void Start()
+	{
+		_animator = GetComponent<Animator>();
+		_enemy = GetComponent<Enemy>();
+		_enemyHealth = GetComponent<EnemyHealth>();
+	}
+	#endregion
 
-    private IEnumerator PlayDead()
-    {
-        _enemy.StopMovement();
-        PlayDieAnimation();
-        yield return new WaitForSeconds(GetCurrentAnimationLenght() + 0.3f);
-        _enemy.ResumeMovement();
-        _enemyHealth.ResetHealth();
-        ObjectPooler.ReturnToPool(_enemy.gameObject);
-    }
-    
-    private void EnemyHit(Enemy enemy)
-    {
-        if (_enemy == enemy)
-        {
-            StartCoroutine(PlayHurt());
-        }
-    }
+	void PlayHurtAnimation()
+	{
+		_animator.SetTrigger("Hurt");
+	}
 
-    private void EnemyDead(Enemy enemy)
-    {
-        if (_enemy == enemy)
-        {
-            StartCoroutine(PlayDead());
-        }
-    }
-    
-    private void OnEnable()
-    {
-        EnemyHealth.OnEnemyHit += EnemyHit;
-        EnemyHealth.OnEnemyKilled += EnemyDead;
-    }
+	void PlayDieAnimation()
+	{
+		_animator.SetTrigger("Die");
+	}
 
-    private void OnDisable()
-    {
-        EnemyHealth.OnEnemyHit -= EnemyHit;
-        EnemyHealth.OnEnemyKilled -= EnemyDead;
-    }
+	float GetCurrentAnimationLenght()
+	{
+		float animationLenght = _animator.GetCurrentAnimatorStateInfo(0).length;
+		return animationLenght;
+	}
+
+	IEnumerator PlayHurt()
+	{
+		_enemy.StopMovement();
+		PlayHurtAnimation();
+		yield return new WaitForSeconds(GetCurrentAnimationLenght() + 0.3f);
+		_enemy.ResumeMovement();
+	}
+
+	IEnumerator PlayDead()
+	{
+		_enemy.StopMovement();
+		PlayDieAnimation();
+		yield return new WaitForSeconds(GetCurrentAnimationLenght() + 0.3f);
+		_enemy.ResumeMovement();
+		_enemyHealth.ResetHealth();
+		ObjectPooler.ReturnToPool(_enemy.gameObject);
+	}
+
+	void EnemyHit(Enemy enemy)
+	{
+		if (_enemy == enemy)
+		{
+			StartCoroutine(PlayHurt());
+		}
+	}
+
+	void EnemyDead(Enemy enemy)
+	{
+		if (_enemy == enemy)
+		{
+			StartCoroutine(PlayDead());
+		}
+	}
 }

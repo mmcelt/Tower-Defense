@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class DamageText : MonoBehaviour
 {
-    public TextMeshProUGUI DmgText => GetComponentInChildren<TextMeshProUGUI>();
+	public TextMeshProUGUI DmgText => GetComponentInChildren<TextMeshProUGUI>();
 
-    public void ReturnTextToPool()
-    {
-        transform.SetParent(null);
-        ObjectPooler.ReturnToPool(gameObject);
-    }
+	public void ReturnTextToPool()
+	{
+		transform.SetParent(null);
+		ObjectPooler.ReturnToPool(gameObject);
+	}
 }

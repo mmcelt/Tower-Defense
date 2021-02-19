@@ -3,13 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTextManager : Singleton<DamageTextManager>
+public class DamageTextManager : MonoBehaviour
 {
-    public ObjectPooler Pooler { get; set; }
-    
-    // Start is called before the first frame update
-    private void Start()
-    {
-        Pooler = GetComponent<ObjectPooler>();
-    }
+	public static DamageTextManager Instance;
+
+	public ObjectPooler Pooler { get; set; }
+
+	void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
+	}
+
+	void Start()
+	{
+		Pooler = GetComponent<ObjectPooler>();
+	}
 }

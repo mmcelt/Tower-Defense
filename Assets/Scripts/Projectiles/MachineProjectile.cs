@@ -5,36 +5,36 @@ using UnityEngine;
 
 public class MachineProjectile : Projectile
 {
-    public Vector2 Direction { get; set; }
-    
-    protected override void Update()
-    {
-        MoveProjectile();
-    }
+	public Vector2 Direction { get; set; }
 
-    protected override void MoveProjectile()
-    {
-        Vector2 movement = Direction.normalized * moveSpeed * Time.deltaTime;
-        transform.Translate(movement);
-    }
+	protected override void Update()
+	{
+		MoveProjectile();
+	}
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy.EnemyHealth.CurrentHealth > 0f)
-            {
-                OnEnemyHit?.Invoke(enemy, damage);
-                enemy.EnemyHealth.DealDamage(damage);
-            }
-            
-            ObjectPooler.ReturnToPool(gameObject);
-        }
-    }
+	protected override void MoveProjectile()
+	{
+		Vector2 movement = Direction.normalized * moveSpeed * Time.deltaTime;
+		transform.Translate(movement);
+	}
 
-    private void OnEnable()
-    {
-        StartCoroutine(ObjectPooler.ReturnToPoolWithDelay(gameObject, 5f));
-    }
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Enemy"))
+		{
+			Enemy enemy = other.GetComponent<Enemy>();
+			if (enemy.EnemyHealth.CurrentHealth > 0f)
+			{
+				OnEnemyHit?.Invoke(enemy, damage);
+				enemy.EnemyHealth.DealDamage(damage);
+			}
+
+			ObjectPooler.ReturnToPool(gameObject);
+		}
+	}
+
+	void OnEnable()
+	{
+		StartCoroutine(ObjectPooler.ReturnToPoolWithDelay(gameObject, 5f));
+	}
 }

@@ -5,61 +5,61 @@ using UnityEngine;
 
 public class TurretProjectile : MonoBehaviour
 {
-    [SerializeField] protected Transform projectileSpawnPosition;
-    [SerializeField] protected float delayBtwAttacks = 2f;
+	[SerializeField] protected Transform projectileSpawnPosition;
+	[SerializeField] protected float delayBtwAttacks = 2f;
 
-    protected float _nextAttackTime;
-    protected ObjectPooler _pooler;
-    protected Turret _turret;
-    protected Projectile _currentProjectileLoaded;
+	protected float _nextAttackTime;
+	protected ObjectPooler _pooler;
+	protected Turret _turret;
+	protected Projectile _currentProjectileLoaded;
 
-    private void Start()
-    {
-        _turret = GetComponent<Turret>();
-        _pooler = GetComponent<ObjectPooler>();
-        
-        LoadProjectile();
-    }
+	void Start()
+	{
+		_turret = GetComponent<Turret>();
+		_pooler = GetComponent<ObjectPooler>();
 
-    protected virtual void Update()
-    {
-        if (IsTurretEmpty())
-        {
-            LoadProjectile();
-        }
+		LoadProjectile();
+	}
 
-        if (Time.time > _nextAttackTime)
-        {
-            if (_turret.CurrentEnemyTarget != null && _currentProjectileLoaded != null &&
-                _turret.CurrentEnemyTarget.EnemyHealth.CurrentHealth > 0f)
-            {
-                _currentProjectileLoaded.transform.parent = null;
-                _currentProjectileLoaded.SetEnemy(_turret.CurrentEnemyTarget);
-            }
+	protected virtual void Update()
+	{
+		if (IsTurretEmpty())
+		{
+			LoadProjectile();
+		}
 
-            _nextAttackTime = Time.time + delayBtwAttacks;
-        }
-    }
+		if (Time.time > _nextAttackTime)
+		{
+			if (_turret.CurrentEnemyTarget != null && _currentProjectileLoaded != null &&
+				 _turret.CurrentEnemyTarget.EnemyHealth.CurrentHealth > 0f)
+			{
+				_currentProjectileLoaded.transform.parent = null;
+				_currentProjectileLoaded.SetEnemy(_turret.CurrentEnemyTarget);
+			}
 
-    protected virtual  void LoadProjectile()
-    {
-        GameObject newInstance = _pooler.GetInstanceFromPool();
-        newInstance.transform.localPosition = projectileSpawnPosition.position;
-        newInstance.transform.SetParent(projectileSpawnPosition);
+			_nextAttackTime = Time.time + delayBtwAttacks;
+		}
+	}
 
-        _currentProjectileLoaded = newInstance.GetComponent<Projectile>();
-        _currentProjectileLoaded.TurretOwner = this;
-        _currentProjectileLoaded.ResetProjectile();
-        newInstance.SetActive(true);
-    }
+	protected virtual void LoadProjectile()
+	{
+		GameObject newInstance = _pooler.GetInstanceFromPool();
+		newInstance.transform.localPosition = projectileSpawnPosition.position;
+		newInstance.transform.SetParent(projectileSpawnPosition);
 
-    private bool IsTurretEmpty()
-    {
-        return _currentProjectileLoaded == null;
-    }
-    
-    public void ResetTurretProjectile()
-    {
-        _currentProjectileLoaded = null;
-    }
+		_currentProjectileLoaded = newInstance.GetComponent<Projectile>();
+		_currentProjectileLoaded.TurretOwner = this;
+		_currentProjectileLoaded.ResetProjectile();
+		newInstance.SetActive(true);
+	}
+
+	bool IsTurretEmpty()
+	{
+		return _currentProjectileLoaded == null;
+	}
+
+	public void ResetTurretProjectile()
+	{
+		_currentProjectileLoaded = null;
+	}
 }

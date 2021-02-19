@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField] private Vector3[] points;
+    [SerializeField] Vector3[] points;
 
     public Vector3[] Points => points;
     public Vector3 CurrentPosition => _currentPosition;
     
-    private Vector3 _currentPosition;
-    private bool _gameStarted;
+    Vector3 _currentPosition;
+    bool _gameStarted;
     
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         _gameStarted = true;
         _currentPosition = transform.position;
@@ -25,7 +25,7 @@ public class Waypoint : MonoBehaviour
         return CurrentPosition + Points[index];
     }
 
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         if (!_gameStarted && transform.hasChanged)
         {

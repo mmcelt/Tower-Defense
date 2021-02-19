@@ -4,42 +4,42 @@ using UnityEngine;
 
 public class MachineTurretProjectile : TurretProjectile
 {
-    [SerializeField] private bool isDualMachine;
-    [SerializeField] private float spreadRange;
-    
-    protected override void Update()
-    {
-        if (Time.time > _nextAttackTime)
-        {
-            if (_turret.CurrentEnemyTarget != null)
-            {
-                Vector3 dirToTarget = _turret.CurrentEnemyTarget.transform.position - transform.position;
-                FireProjectile(dirToTarget);
-            }
-            
-            _nextAttackTime = Time.time + delayBtwAttacks;
-        }
-    }
+	[SerializeField] bool isDualMachine;
+	[SerializeField] float spreadRange;
 
-    protected override void LoadProjectile() { }
+	protected override void Update()
+	{
+		if (Time.time > _nextAttackTime)
+		{
+			if (_turret.CurrentEnemyTarget != null)
+			{
+				Vector3 dirToTarget = _turret.CurrentEnemyTarget.transform.position - transform.position;
+				FireProjectile(dirToTarget);
+			}
 
-    private void FireProjectile(Vector3 direction)
-    {
-        GameObject instance = _pooler.GetInstanceFromPool();
-        instance.transform.position = projectileSpawnPosition.position;
+			_nextAttackTime = Time.time + delayBtwAttacks;
+		}
+	}
 
-        MachineProjectile projectile = instance.GetComponent<MachineProjectile>();
-        projectile.Direction = direction;
+	protected override void LoadProjectile() { }
 
-        if (isDualMachine)
-        {
-            float randomSpread = Random.Range(-spreadRange, spreadRange);
-            Vector3 spread = new Vector3(0f, 0f, randomSpread);
-            Quaternion spreadValue = Quaternion.Euler(spread);
-            Vector2 newDirection = spreadValue * direction;
-            projectile.Direction = newDirection;
-        }
-        
-        instance.SetActive(true);
-    }
+	void FireProjectile(Vector3 direction)
+	{
+		GameObject instance = _pooler.GetInstanceFromPool();
+		instance.transform.position = projectileSpawnPosition.position;
+
+		MachineProjectile projectile = instance.GetComponent<MachineProjectile>();
+		projectile.Direction = direction;
+
+		if (isDualMachine)
+		{
+			float randomSpread = Random.Range(-spreadRange, spreadRange);
+			Vector3 spread = new Vector3(0f, 0f, randomSpread);
+			Quaternion spreadValue = Quaternion.Euler(spread);
+			Vector2 newDirection = spreadValue * direction;
+			projectile.Direction = newDirection;
+		}
+
+		instance.SetActive(true);
+	}
 }
