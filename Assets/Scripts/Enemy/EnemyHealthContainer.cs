@@ -1,35 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHealthContainer : MonoBehaviour
 {
-	#region Fields & Properties
-
-	[SerializeField] Image _fillAmountImage;
-
-	public Image FillAmountImage => _fillAmountImage;
-
-	#endregion
-
-	#region Getters
-
-
-	#endregion
-
-	#region Unity Methods
-
-
-	#endregion
-
-	#region Public Methods
-
-
-	#endregion
-
-	#region Private Methods
-
-
-	#endregion
+    [SerializeField] private Image fillAmountImage;
+    public Image FillAmountImage => fillAmountImage;
 }

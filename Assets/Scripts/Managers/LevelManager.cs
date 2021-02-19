@@ -1,54 +1,36 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-	#region Fields & Properties
+    [SerializeField] private int lives = 10;
 
-	[SerializeField] int _lives = 10;
+    public int TotalLives { get; set; }
 
-	public int TotalLives { get; private set; }
+    private void Start()
+    {
+        TotalLives = lives;
+    }
 
-	#endregion
+    private void ReduceLives(Enemy enemy)
+    {
+        TotalLives--;
+        if (TotalLives <= 0)
+        {
+            TotalLives = 0;
+            // Game Over
+        }
+    }
+    
+    private void OnEnable()
+    {
+        Enemy.OnEndReached += ReduceLives;
+    }
 
-	#region Getters
-
-
-	#endregion
-
-	#region Unity Methods
-
-	void OnEnable()
-	{
-		Enemy.OnEndReached += ReduceLives;
-	}
-
-	void OnDisable()
-	{
-		Enemy.OnEndReached -= ReduceLives;
-	}
-
-	void Start() 
-	{
-		TotalLives = _lives;
-	}
-	#endregion
-
-	#region Public Methods
-
-
-	#endregion
-
-	#region Private Methods
-
-	void ReduceLives(Enemy target)
-	{
-		TotalLives = Mathf.Max(TotalLives - 1, 0);
-		if (TotalLives == 0)
-		{
-			//game over logic
-		}
-	}
-	#endregion
+    private void OnDisable()
+    {
+        Enemy.OnEndReached -= ReduceLives;
+    }
 }

@@ -1,69 +1,61 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-	#region Fields & Properties
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private int poolSize = 10;
 
-	[SerializeField] GameObject _prefab;
-	[SerializeField] int _poolSize = 10;
+    private List<GameObject> _pool;
+    private GameObject _poolContainer;
 
-	List<GameObject> _pool;
-	GameObject _poolContainer;
+    private void Awake()
+    {
+        _pool = new List<GameObject>();
+        _poolContainer = new GameObject($"Pool - {prefab.name}");
+        
+        CreatePooler();
+    }
 
-	#endregion
+    private void CreatePooler()
+    {
+        for (int i = 0; i < poolSize; i++)
+        {
+            _pool.Add(CreateInstance());
+        }
+    }
+    
+    private GameObject CreateInstance()
+    {
+        GameObject newInstance = Instantiate(prefab);
+        newInstance.transform.SetParent(_poolContainer.transform);
+        newInstance.SetActive(false);
+        return newInstance;
+    }
 
-	#region Getters
+    public GameObject GetInstanceFromPool()
+    {
+        for (int i = 0; i < _pool.Count; i++)
+        {
+            if (!_pool[i].activeInHierarchy)
+            {
+                return _pool[i];
+            }
+        }
+        
+        return CreateInstance();
+    }
 
+    public static void ReturnToPool(GameObject instance)
+    {
+        instance.SetActive(false);
+    }
 
-	#endregion
-
-	#region Unity Methods
-
-	void Awake() 
-	{
-		_pool = new List<GameObject>();
-		_poolContainer = new GameObject($"Pool - {_prefab.name}");
-
-		CreatePooler();
-	}
-	#endregion
-
-	#region Public Methods
-
-	public GameObject GetInstanceFromPool()
-	{
-		for (int i = 0; i < _pool.Count; i++)
-		{
-			if (!_pool[i].activeInHierarchy)
-				return _pool[i];
-		}
-
-		return CreateInstance();
-	}
-
-	public static void ReturnToPool(GameObject instance)
-	{
-		instance.SetActive(false);
-	}
-	#endregion
-
-	#region Private Methods
-
-	void CreatePooler()
-	{
-		for (int i = 0; i < _poolSize; i++)
-		{
-			_pool.Add(CreateInstance());
-		}
-	}
-
-	GameObject CreateInstance()
-	{
-		GameObject newInstance = Instantiate(_prefab, _poolContainer.transform);
-		newInstance.SetActive(false);
-		return newInstance;
-	}
-	#endregion
+    public static IEnumerator ReturnToPoolWithDelay(GameObject instance, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        instance.SetActive(false);
+    }
 }

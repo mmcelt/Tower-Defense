@@ -1,126 +1,121 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-	#region Fields & Properties
+    public static Action<Enemy> OnEndReached;
+    
+    [SerializeField] private float moveSpeed = 3f;
 
-	public static Action<Enemy> OnEndReached;
+    /// <summary>
+    /// Move speed of our enemy
+    /// </summary>
+    public float MoveSpeed { get; set; }
+    
+    /// <summary>
+    /// The waypoint reference
+    /// </summary>
+    public Waypoint Waypoint { get; set; }
 
-	[SerializeField] float _moveSpeed = 3f;
+    public EnemyHealth EnemyHealth { get; set; }
+    
+    /// <summary>
+    /// Returns the current Point Position where this enemy needs to go
+    /// </summary>
+    public Vector3 CurrentPointPosition => Waypoint.GetWaypointPosition(_currentWaypointIndex);
+    
+    private int _currentWaypointIndex;
+    private Vector3 _lastPointPosition;
+    
+    private EnemyHealth _enemyHealth;
+    private SpriteRenderer _spriteRenderer;
+    
+    private void Start()
+    {
+        _enemyHealth = GetComponent<EnemyHealth>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        EnemyHealth = GetComponent<EnemyHealth>();
+        
+        _currentWaypointIndex = 0;
+        MoveSpeed = moveSpeed;
+        _lastPointPosition = transform.position;
+    }
 
-	int _currentWaypointIndex;
+    private void Update()
+    {
+        Move();
+        Rotate();
+        
+        if (CurrentPointPositionReached())
+        {
+            UpdateCurrentPointIndex();
+        }
+    }
+    
+    private void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, 
+            CurrentPointPosition, MoveSpeed * Time.deltaTime);
+    }
 
-	/// <summary>
-	/// returns the current point position where this enemy needs to go
-	/// </summary>
-	public Vector3 CurrentPointPosition => Waypoint.GetWaypointPosition(_currentWaypointIndex);
+    public void StopMovement()
+    {
+        MoveSpeed = 0f;
+    }
 
-	public float MoveSpeed { get; set; }
-	public Waypoint Waypoint { get; set; }
-	public EnemyHealth EnemyHealth { get; set; }
+    public void ResumeMovement()
+    {
+        MoveSpeed = moveSpeed;
+    }
 
-	EnemyHealth _enemyHealth;
-	SpriteRenderer _sprite;
+    private void Rotate()
+    {
+        if (CurrentPointPosition.x > _lastPointPosition.x)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        else
+        {
+            _spriteRenderer.flipX = true;
+        }
+    }
+    
+    private bool CurrentPointPositionReached()
+    {
+        float distanceToNextPointPosition = (transform.position - CurrentPointPosition).magnitude;
+        if (distanceToNextPointPosition < 0.1f)
+        {
+            _lastPointPosition = transform.position;
+            return true;
+        }
 
-	Vector3 _lastPointPosition;
+        return false;
+    }
 
-	#endregion
+    private void UpdateCurrentPointIndex()
+    {
+        int lastWaypointIndex = Waypoint.Points.Length - 1;
+        if (_currentWaypointIndex < lastWaypointIndex)
+        {
+            _currentWaypointIndex++;
+        }
+        else
+        {
+            EndPointReached();
+        }
+    }
 
-	#region Getters
+    private void EndPointReached()
+    {
+        OnEndReached?.Invoke(this);
+        _enemyHealth.ResetHealth();
+        ObjectPooler.ReturnToPool(gameObject);
+    }
 
-
-	#endregion
-
-	#region Unity Methods
-
-	void Start() 
-	{
-		_enemyHealth = GetComponent<EnemyHealth>();
-		_sprite = GetComponent<SpriteRenderer>();
-
-		_currentWaypointIndex = 0;
-		MoveSpeed = _moveSpeed;
-		_lastPointPosition = transform.position;
-		EnemyHealth = _enemyHealth;
-	}
-	
-	void Update() 
-	{
-		Move();
-		Rotate();
-
-		if (CurrentPositionReached())
-			UpdateCurrentPointIndex();
-	}
-	#endregion
-
-	#region Public Methods
-
-	public void ResetEnemy()
-	{
-		_currentWaypointIndex = 0;
-	}
-
-	public void StopMovement()
-	{
-		MoveSpeed = 0f;
-	}
-
-	public void ResumeMovement()
-	{
-		MoveSpeed = _moveSpeed;
-	}
-	#endregion
-
-	#region Private Methods
-
-	void Move()
-	{
-		transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, MoveSpeed * Time.deltaTime);
-	}
-
-	void Rotate()
-	{
-		if(CurrentPointPosition.x > _lastPointPosition.x)	//moving right
-		{
-			_sprite.flipX = false;
-		}
-		else
-		{
-			_sprite.flipX = true;
-		}
-	}
-
-	bool CurrentPositionReached()
-	{
-		float distToNextPointPosition = (transform.position - CurrentPointPosition).magnitude;
-		if (distToNextPointPosition < 0.1f)
-		{
-			_lastPointPosition = transform.position;
-			return true;
-		}
-
-		return false;
-	}
-
-	void UpdateCurrentPointIndex()
-	{
-		int lastWaypointIndex = Waypoint.Points.Length - 1;
-		if (_currentWaypointIndex < lastWaypointIndex)
-			_currentWaypointIndex++;
-		else
-		{
-			EndpointReached();
-		}
-	}
-	void EndpointReached()
-	{
-		OnEndReached?.Invoke(this); //check for listeners, if there are some-fire the event
-		_enemyHealth.ResetHealth();
-		ObjectPooler.ReturnToPool(gameObject);
-	}
-	#endregion
+    public void ResetEnemy()
+    {
+        _currentWaypointIndex = 0;
+    }
 }

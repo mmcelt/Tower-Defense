@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,87 +6,70 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-	#region Fields & Properties
+    public static Action<Enemy> OnEnemyKilled;
+    public static Action<Enemy> OnEnemyHit;
 
-	public static Action<Enemy> OnEnemyKilled;
-	public static Action<Enemy> OnEnemyHit;
+    [SerializeField] private GameObject healthBarPrefab;
+    [SerializeField] private Transform barPosition;
 
-	[SerializeField] GameObject _healthBarPrefab;
-	[SerializeField] Transform _barPosition;
-	[SerializeField] float _initialHealth, _maxHealth;
+    [SerializeField] private float initialHealth = 10f;
+    [SerializeField] private float maxHealth = 10f;
 
-	public float CurrentHealth { get; set; }
+    public float CurrentHealth { get; set; }
+    
+    private Image _healthBar;
+    private Enemy _enemy;
+    
+    private void Start()
+    {
+        CreateHealthBar();
+        CurrentHealth = initialHealth;
 
-	Image _healthbar;
-	Enemy _enemy;
+        _enemy = GetComponent<Enemy>();
+    }
 
-	#endregion
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            DealDamage(5f);
+        }
 
-	#region Getters
+        _healthBar.fillAmount = Mathf.Lerp(_healthBar.fillAmount, 
+            CurrentHealth / maxHealth, Time.deltaTime * 10f);
+    }
 
+    private void CreateHealthBar()
+    {
+        GameObject newBar = Instantiate(healthBarPrefab, barPosition.position, Quaternion.identity);
+        newBar.transform.SetParent(transform);
 
-	#endregion
+        EnemyHealthContainer container = newBar.GetComponent<EnemyHealthContainer>();
+        _healthBar = container.FillAmountImage;
+    }
 
-	#region Unity Methods
+    public void DealDamage(float damageReceived)
+    {
+        CurrentHealth -= damageReceived;
+        if (CurrentHealth <= 0)
+        {
+            CurrentHealth = 0;
+            Die();
+        }
+        else
+        {
+            OnEnemyHit?.Invoke(_enemy);
+        }
+    }
 
-	void Start() 
-	{
-		_enemy = GetComponent<Enemy>();
-		CreateHealthBar();
-		CurrentHealth = _initialHealth;
-		UpdateHealthbar();
-	}
-
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.P))
-			DealDamage(5f);
-
-		UpdateHealthbar();
-	}
-	#endregion
-
-	#region Public Methods
-
-	public void DealDamage(float damageReceived)
-	{
-		CurrentHealth = Mathf.Max(CurrentHealth - damageReceived, 0);
-		if (CurrentHealth == 0)
-		{
-			Die();
-		}
-		else
-		{
-			OnEnemyHit?.Invoke(_enemy);
-		}
-	}
-
-	public void ResetHealth()
-	{
-		CurrentHealth = _initialHealth;
-		_healthbar.fillAmount = 1f;
-	}
-	#endregion
-
-	#region Private Methods
-
-	void CreateHealthBar()
-	{
-		GameObject newBar = Instantiate(_healthBarPrefab, _barPosition.position, Quaternion.identity);
-		newBar.transform.SetParent(transform);
-
-		EnemyHealthContainer container = newBar.GetComponent<EnemyHealthContainer>();
-		_healthbar = container.FillAmountImage;
-	}
-
-	void UpdateHealthbar()
-	{
-		_healthbar.fillAmount = Mathf.Lerp(_healthbar.fillAmount, CurrentHealth / _maxHealth, Time.deltaTime * 10f);
-	}
-
-	void Die()
-	{
-		OnEnemyKilled?.Invoke(_enemy);
-	}
-	#endregion
+    public void ResetHealth()
+    {
+        CurrentHealth = initialHealth;
+        _healthBar.fillAmount = 1f;
+    }
+    
+    private void Die()
+    {
+        OnEnemyKilled?.Invoke(_enemy);
+    }
 }
