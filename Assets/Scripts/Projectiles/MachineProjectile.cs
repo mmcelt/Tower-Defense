@@ -7,15 +7,15 @@ public class MachineProjectile : Projectile
 {
 	public Vector2 Direction { get; set; }
 
-	protected override void Update()
+	
+	void OnEnable()
 	{
-		MoveProjectile();
+		StartCoroutine(ObjectPooler.ReturnToPoolWithDelay(gameObject, 0.3f));
 	}
 
-	protected override void MoveProjectile()
+	protected override void Update()
 	{
-		Vector2 movement = Direction.normalized * moveSpeed * Time.deltaTime;
-		transform.Translate(movement);
+			MoveProjectile();
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
@@ -23,18 +23,17 @@ public class MachineProjectile : Projectile
 		if (other.CompareTag("Enemy"))
 		{
 			Enemy enemy = other.GetComponent<Enemy>();
-			if (enemy.EnemyHealth.CurrentHealth > 0f)
+			if (enemy.EnemyHealth.CurrentHealth > 0)
 			{
-				OnEnemyHit?.Invoke(enemy, damage);
 				enemy.EnemyHealth.DealDamage(damage);
 			}
-
 			ObjectPooler.ReturnToPool(gameObject);
 		}
 	}
 
-	void OnEnable()
+	protected override void MoveProjectile()
 	{
-		StartCoroutine(ObjectPooler.ReturnToPoolWithDelay(gameObject, 5f));
+		Vector2 movement = Direction.normalized * moveSpeed * Time.deltaTime;
+		transform.Translate(movement);
 	}
 }

@@ -192,10 +192,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 279351458}
+  - component: {fileID: 279351454}
+  - component: {fileID: 279351455}
   - component: {fileID: 279351457}
   - component: {fileID: 279351456}
-  - component: {fileID: 279351455}
-  - component: {fileID: 279351454}
   m_Layer: 0
   m_Name: Dual Machine Turret
   m_TagString: Untagged
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bf78f335b8d9745b9cd89fff9a1614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2219548949693636471, guid: 4637811bca16dcf4dbb0acec3315dc9b, type: 3}
+  prefab: {fileID: 2769827635917035498, guid: b463fe89af983f8448e0d9480e23fcdf, type: 3}
   poolSize: 10
 --- !u!114 &279351456
 MonoBehaviour:
@@ -242,11 +242,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 279351453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850dbc4887dc23540b9b57184d7d70f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c2e2fc404c654e4697ae84a4eac31b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 22080388}
-  delayBtwAttacks: 2
+  delayBtwAttacks: 0.2
+  isDualMachine: 1
+  spreadRange: 5
 --- !u!114 &279351457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,17 +287,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294204937}
+  - component: {fileID: 294204933}
   - component: {fileID: 294204936}
   - component: {fileID: 294204935}
   - component: {fileID: 294204934}
-  - component: {fileID: 294204933}
   m_Layer: 0
   m_Name: Single Machine Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &294204933
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -324,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bf78f335b8d9745b9cd89fff9a1614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2219548949693636471, guid: 4637811bca16dcf4dbb0acec3315dc9b, type: 3}
+  prefab: {fileID: 2769827635917035498, guid: b463fe89af983f8448e0d9480e23fcdf, type: 3}
   poolSize: 10
 --- !u!114 &294204935
 MonoBehaviour:
@@ -335,11 +337,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 294204932}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850dbc4887dc23540b9b57184d7d70f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c2e2fc404c654e4697ae84a4eac31b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 488660498}
-  delayBtwAttacks: 2
+  delayBtwAttacks: 0.2
+  isDualMachine: 0
+  spreadRange: 0
 --- !u!114 &294204936
 MonoBehaviour:
   m_ObjectHideFlags: 0
