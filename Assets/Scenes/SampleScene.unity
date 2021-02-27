@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 279351455}
   - component: {fileID: 279351457}
   - component: {fileID: 279351456}
+  - component: {fileID: 279351459}
   m_Layer: 0
   m_Name: Dual Machine Turret
   m_TagString: Untagged
@@ -330,7 +331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 22080388}
-  delayBtwAttacks: 0.2
+  delayBetweenAttacks: 2
+  _damage: 2
   isDualMachine: 1
   spreadRange: 5
 --- !u!114 &279351457
@@ -362,6 +364,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279351459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279351453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeInitialCost: 0
+  _upgradeCostIncremental: 0
+  _damageIncremental: 0
+  _delayReduction: 0
 --- !u!1 &294204932
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +393,7 @@ GameObject:
   - component: {fileID: 294204936}
   - component: {fileID: 294204935}
   - component: {fileID: 294204934}
+  - component: {fileID: 294204938}
   m_Layer: 0
   m_Name: Single Machine Turret
   m_TagString: Untagged
@@ -425,7 +444,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 488660498}
-  delayBtwAttacks: 0.2
+  delayBetweenAttacks: 2
+  _damage: 2
   isDualMachine: 0
   spreadRange: 0
 --- !u!114 &294204936
@@ -457,6 +477,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294204938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294204932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeInitialCost: 0
+  _upgradeCostIncremental: 0
+  _damageIncremental: 0
+  _delayReduction: 0
 --- !u!1 &390371833
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +784,7 @@ GameObject:
   - component: {fileID: 486380448}
   - component: {fileID: 486380447}
   - component: {fileID: 486380446}
+  - component: {fileID: 486380451}
   m_Layer: 0
   m_Name: Two Missile Turret
   m_TagString: Untagged
@@ -798,7 +835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 1511067698}
-  delayBtwAttacks: 2
+  delayBetweenAttacks: 2
+  _damage: 2
 --- !u!114 &486380449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +866,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &486380451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486380445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeInitialCost: 0
+  _upgradeCostIncremental: 0
+  _damageIncremental: 0
+  _delayReduction: 0
 --- !u!1 &488660497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,13 +1446,14 @@ GameObject:
   - component: {fileID: 736031541}
   - component: {fileID: 736031540}
   - component: {fileID: 736031537}
+  - component: {fileID: 736031542}
   m_Layer: 0
   m_Name: One Missile Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!58 &736031537
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1471,7 +1526,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 1523903762}
-  delayBtwAttacks: 2
+  delayBetweenAttacks: 2
+  _damage: 2
+--- !u!114 &736031542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736031536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeInitialCost: 0
+  _upgradeCostIncremental: 0
+  _damageIncremental: 2
+  _delayReduction: 0.1
 --- !u!1 &761660612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,6 +1959,7 @@ GameObject:
   - component: {fileID: 1740181207}
   - component: {fileID: 1740181206}
   - component: {fileID: 1740181205}
+  - component: {fileID: 1740181210}
   m_Layer: 0
   m_Name: Ultra Missile Turret
   m_TagString: Untagged
@@ -1937,7 +2010,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 18099783}
-  delayBtwAttacks: 2
+  delayBetweenAttacks: 2
+  _damage: 2
 --- !u!114 &1740181208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,6 +2041,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1740181210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740181204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeInitialCost: 0
+  _upgradeCostIncremental: 0
+  _damageIncremental: 0
+  _delayReduction: 0
 --- !u!1 &1751927135
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,13 +2234,14 @@ GameObject:
   - component: {fileID: 1828637298}
   - component: {fileID: 1828637300}
   - component: {fileID: 1828637299}
+  - component: {fileID: 1828637302}
   m_Layer: 0
   m_Name: Tank Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &1828637297
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2194,7 +2285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnPosition: {fileID: 1398562756}
-  delayBtwAttacks: 0.5
+  delayBetweenAttacks: 2
+  _damage: 2
 --- !u!114 &1828637300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2224,6 +2316,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1828637302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828637296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeInitialCost: 0
+  _upgradeCostIncremental: 0
+  _damageIncremental: 0
+  _delayReduction: 0
 --- !u!1 &1897988820
 GameObject:
   m_ObjectHideFlags: 0

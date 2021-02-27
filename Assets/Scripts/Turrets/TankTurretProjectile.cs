@@ -14,7 +14,7 @@ public class TankTurretProjectile : TurretProjectile
 				FireProjectile(_turret.CurrentEnemyTarget);
 			}
 
-			_nextAttackTime = Time.time + delayBtwAttacks;
+			_nextAttackTime = Time.time + delayBetweenAttacks;
 		}
 	}
 

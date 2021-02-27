@@ -17,7 +17,7 @@ public class MachineTurretProjectile : TurretProjectile
 				FireProjectile(dirToTarget);
 			}
 
-			_nextAttackTime = Time.time + delayBtwAttacks;
+			_nextAttackTime = Time.time + delayBetweenAttacks;
 		}
 	}
 
