@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 8036662135902396641}
   - component: {fileID: 8342084978124705924}
   - component: {fileID: 2527712514147620377}
-  - component: {fileID: 221780276}
-  - component: {fileID: 4364122770419704414}
   - component: {fileID: -5537002021355261889}
   - component: {fileID: 68495521089198674}
+  - component: {fileID: 221780276}
+  - component: {fileID: 4364122770419704414}
   m_Layer: 0
   m_Name: Enemy_red
   m_TagString: Enemy
@@ -157,6 +157,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-5537002021355261889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283197221648782910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955160495b653d04e8912ab9dfceb85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &68495521089198674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283197221648782910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7da93c74bd531e4f94403d12c0db762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textDamageSpawnPosition: {fileID: 2372895774356764908}
 --- !u!114 &221780276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,31 +211,6 @@ MonoBehaviour:
   barPosition: {fileID: 4592751626569458558}
   initialHealth: 10
   maxHealth: 10
---- !u!114 &-5537002021355261889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283197221648782910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955160495b653d04e8912ab9dfceb85c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &68495521089198674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283197221648782910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7da93c74bd531e4f94403d12c0db762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textDamageSpawnPosition: {fileID: 2372895774356764908}
 --- !u!1 &3431734547113351856
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3431734547113351856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.21, y: -0.72, z: 0}
+  m_LocalPosition: {x: 0.21, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7137854294575218021}

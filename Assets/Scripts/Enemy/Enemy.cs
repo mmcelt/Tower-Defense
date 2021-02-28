@@ -74,13 +74,13 @@ public class Enemy : MonoBehaviour
 	{
 		if (CurrentPointPosition.x > _lastPointPosition.x)
 		{
-			//_spriteRenderer.flipX = false;
-			transform.localScale = Vector3.one;
+			_spriteRenderer.flipX = false;
+			//transform.localScale = Vector3.one;
 		}
 		else
 		{
-			//_spriteRenderer.flipX = true;
-			transform.localScale = new Vector3(-1f, 1f, 1f);
+			_spriteRenderer.flipX = true;
+			//transform.localScale = new Vector3(-1f, 1f, 1f);
 		}
 	}
 
