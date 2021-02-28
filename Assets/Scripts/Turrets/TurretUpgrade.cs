@@ -6,11 +6,13 @@ public class TurretUpgrade : MonoBehaviour
 {
 	#region Fields & Properties
 
-	[SerializeField] int _upgradeInitialCost, _upgradeCostIncremental;
+	[SerializeField] int _initialUpgradeCost, _incrementalUpgradeCost;
 	[SerializeField] float _damageIncremental;
 	[SerializeField] float _delayReduction;
 
 	TurretProjectile _turretProjectile;
+
+	public int  UpgradeCost { get; set; }
 
 	#endregion
 
@@ -24,6 +26,7 @@ public class TurretUpgrade : MonoBehaviour
 	void Start() 
 	{
 		_turretProjectile = GetComponent<TurretProjectile>();
+		UpgradeCost = _initialUpgradeCost;
 	}
 
 	void Update()
@@ -42,8 +45,18 @@ public class TurretUpgrade : MonoBehaviour
 
 	void UpgradeTurret()
 	{
-		_turretProjectile.Damage += _damageIncremental;
-		_turretProjectile.DelayPerShot -= _delayReduction;
+		if (CurrencyManager.Instance.TotalCoins >= UpgradeCost)
+		{
+			_turretProjectile.Damage += _damageIncremental;
+			_turretProjectile.DelayPerShot -= _delayReduction;
+			UpdateUpgrade();
+		}
+	}
+
+	void UpdateUpgrade()
+	{
+		CurrencyManager.Instance.RemoveCoins(UpgradeCost);
+		UpgradeCost += _incrementalUpgradeCost;
 	}
 	#endregion
 }

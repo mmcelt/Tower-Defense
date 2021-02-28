@@ -362,7 +362,7 @@ Transform:
   - {fileID: 390371834}
   - {fileID: 1996762985}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &279351459
 MonoBehaviour:
@@ -376,8 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeInitialCost: 0
-  _upgradeCostIncremental: 0
+  _initialUpgradeCost: 0
+  _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
 --- !u!1 &294204932
@@ -390,9 +390,9 @@ GameObject:
   m_Component:
   - component: {fileID: 294204937}
   - component: {fileID: 294204933}
+  - component: {fileID: 294204934}
   - component: {fileID: 294204936}
   - component: {fileID: 294204935}
-  - component: {fileID: 294204934}
   - component: {fileID: 294204938}
   m_Layer: 0
   m_Name: Single Machine Turret
@@ -475,7 +475,7 @@ Transform:
   - {fileID: 1284540301}
   - {fileID: 551946163}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &294204938
 MonoBehaviour:
@@ -489,8 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeInitialCost: 0
-  _upgradeCostIncremental: 0
+  _initialUpgradeCost: 0
+  _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
 --- !u!1 &390371833
@@ -780,10 +780,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486380450}
+  - component: {fileID: 486380446}
+  - component: {fileID: 486380447}
   - component: {fileID: 486380449}
   - component: {fileID: 486380448}
-  - component: {fileID: 486380447}
-  - component: {fileID: 486380446}
   - component: {fileID: 486380451}
   m_Layer: 0
   m_Name: Two Missile Turret
@@ -864,7 +864,7 @@ Transform:
   - {fileID: 573111794}
   - {fileID: 1997475969}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &486380451
 MonoBehaviour:
@@ -878,8 +878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeInitialCost: 0
-  _upgradeCostIncremental: 0
+  _initialUpgradeCost: 0
+  _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
 --- !u!1 &488660497
@@ -1442,10 +1442,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 736031539}
+  - component: {fileID: 736031537}
+  - component: {fileID: 736031540}
   - component: {fileID: 736031538}
   - component: {fileID: 736031541}
-  - component: {fileID: 736031540}
-  - component: {fileID: 736031537}
   - component: {fileID: 736031542}
   m_Layer: 0
   m_Name: One Missile Turret
@@ -1497,7 +1497,7 @@ Transform:
   - {fileID: 663966156}
   - {fileID: 617248052}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &736031540
 MonoBehaviour:
@@ -1540,8 +1540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeInitialCost: 0
-  _upgradeCostIncremental: 0
+  _initialUpgradeCost: 10
+  _incrementalUpgradeCost: 20
   _damageIncremental: 2
   _delayReduction: 0.1
 --- !u!1 &761660612
@@ -1626,6 +1626,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &900792472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900792474}
+  - component: {fileID: 900792473}
+  m_Layer: 0
+  m_Name: Currency Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &900792473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900792472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ee95256be90246b8b6aea9ef994bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinTest: 500
+--- !u!4 &900792474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900792472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1186782081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,7 +1898,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1398562755
 GameObject:
@@ -1955,10 +1999,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1740181209}
+  - component: {fileID: 1740181205}
+  - component: {fileID: 1740181206}
   - component: {fileID: 1740181208}
   - component: {fileID: 1740181207}
-  - component: {fileID: 1740181206}
-  - component: {fileID: 1740181205}
   - component: {fileID: 1740181210}
   m_Layer: 0
   m_Name: Ultra Missile Turret
@@ -2039,7 +2083,7 @@ Transform:
   - {fileID: 761660613}
   - {fileID: 439221135}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1740181210
 MonoBehaviour:
@@ -2053,8 +2097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeInitialCost: 0
-  _upgradeCostIncremental: 0
+  _initialUpgradeCost: 0
+  _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
 --- !u!1 &1751927135
@@ -2314,7 +2358,7 @@ Transform:
   - {fileID: 1986928274}
   - {fileID: 56548096}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1828637302
 MonoBehaviour:
@@ -2328,8 +2372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeInitialCost: 0
-  _upgradeCostIncremental: 0
+  _initialUpgradeCost: 0
+  _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
 --- !u!1 &1897988820
@@ -2388,7 +2432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1986928273
 GameObject:
