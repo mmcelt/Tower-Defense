@@ -7,9 +7,9 @@ public class TurretSettings : ScriptableObject
 {
 	#region Fields & Properties
 
-	[SerializeField] GameObject _turretPrefab;
-	[SerializeField] int _turretShopCost;
-	[SerializeField] Sprite _turretShopSprite;
+	public GameObject _turretPrefab;
+	public int _turretShopCost;
+	public Sprite _turretShopSprite;
 
 	#endregion
 }
