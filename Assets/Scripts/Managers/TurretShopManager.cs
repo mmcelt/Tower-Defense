@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class TurretShopManager : MonoBehaviour
 	[Header("Turret Settings")]
 	[SerializeField] TurretSettings[] _turrets;
 
+
+	Node _currentSelectedNode;
+
 	#endregion
 
 	#region Getters
@@ -20,6 +24,18 @@ public class TurretShopManager : MonoBehaviour
 	#endregion
 
 	#region Unity Methods
+
+	void OnEnable()
+	{
+		Node.OnNodeSelected += NodeSelected;
+		TurretCard.OnPlaceTurret += PlaceTurret;
+	}
+
+	void OnDisable()
+	{
+		Node.OnNodeSelected -= NodeSelected;
+		TurretCard.OnPlaceTurret -= PlaceTurret;
+	}
 
 	void Start() 
 	{
@@ -44,6 +60,23 @@ public class TurretShopManager : MonoBehaviour
 
 		TurretCard cardButton = newInstance.GetComponent<TurretCard>();
 		cardButton.SetupTurretButton(turretSettings);
+	}
+
+
+	void NodeSelected(Node selectedNode)
+	{
+		_currentSelectedNode = selectedNode;
+	}
+
+	void PlaceTurret(TurretSettings turretToPlace)
+	{
+		if (_currentSelectedNode != null)
+		{
+			GameObject turretInstance = Instantiate(turretToPlace._turretPrefab, _currentSelectedNode.transform);
+
+			Turret turretPlaced = turretInstance.GetComponent<Turret>();
+			_currentSelectedNode.SetTurret(turretPlaced);
+		}
 	}
 	#endregion
 }
