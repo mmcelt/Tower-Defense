@@ -14,6 +14,8 @@ public class TurretUpgrade : MonoBehaviour
 
 	public int  UpgradeCost { get; set; }
 
+	public int Level { get; set; }
+
 	#endregion
 
 	#region Getters
@@ -27,23 +29,13 @@ public class TurretUpgrade : MonoBehaviour
 	{
 		_turretProjectile = GetComponent<TurretProjectile>();
 		UpgradeCost = _initialUpgradeCost;
-	}
-
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.D))
-			UpgradeTurret();
+		Level = 1;
 	}
 	#endregion
 
 	#region Public Methods
 
-
-	#endregion
-
-	#region Private Methods
-
-	void UpgradeTurret()
+	public void UpgradeTurret()
 	{
 		if (CurrencyManager.Instance.TotalCoins >= UpgradeCost)
 		{
@@ -52,11 +44,15 @@ public class TurretUpgrade : MonoBehaviour
 			UpdateUpgrade();
 		}
 	}
+	#endregion
+
+	#region Private Methods
 
 	void UpdateUpgrade()
 	{
 		CurrencyManager.Instance.RemoveCoins(UpgradeCost);
 		UpgradeCost += _incrementalUpgradeCost;
+		Level++;
 	}
 	#endregion
 }

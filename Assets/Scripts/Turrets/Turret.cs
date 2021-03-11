@@ -9,6 +9,8 @@ public class Turret : MonoBehaviour
 
 	public Enemy CurrentEnemyTarget { get; set; }
 
+	public TurretUpgrade TurretUpgrade { get; set; }
+
 	bool _gameStarted;
 	List<Enemy> _enemies;
 
@@ -16,6 +18,7 @@ public class Turret : MonoBehaviour
 	{
 		_gameStarted = true;
 		_enemies = new List<Enemy>();
+		TurretUpgrade = GetComponent<TurretUpgrade>();
 	}
 
 	void Update()
