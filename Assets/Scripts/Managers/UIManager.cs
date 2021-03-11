@@ -50,6 +50,14 @@ public class UIManager : Singleton<UIManager>
 		_currentSelectedNode.Turret.TurretUpgrade.UpgradeTurret();
 		UpdateUpgradeText();
 		UpdateTurretLevelText();
+		UpdateSellValueText();
+	}
+
+	public void SellTurret()
+	{
+		_currentSelectedNode.SellTurret();
+		_currentSelectedNode = null;
+		_nodeUIPanel.SetActive(false);
 	}
 	#endregion
 
@@ -78,6 +86,7 @@ public class UIManager : Singleton<UIManager>
 		_nodeUIPanel.SetActive(true);
 		UpdateUpgradeText();
 		UpdateTurretLevelText();
+		UpdateSellValueText();
 	}
 
 	void UpdateUpgradeText()
@@ -88,6 +97,12 @@ public class UIManager : Singleton<UIManager>
 	void UpdateTurretLevelText()
 	{
 		_turretLevelText.text = $"Level: {_currentSelectedNode.Turret.TurretUpgrade.Level}";
+	}
+
+	void UpdateSellValueText()
+	{
+		int sellAmount = _currentSelectedNode.Turret.TurretUpgrade.GetSellValue();
+		_sellPriceText.text = sellAmount.ToString();
 	}
 	#endregion
 }

@@ -389,3 +389,4 @@ MonoBehaviour:
   _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
+  _sellPercentage: 0.5

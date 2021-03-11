@@ -10,7 +10,12 @@ public class TurretUpgrade : MonoBehaviour
 	[SerializeField] float _damageIncremental;
 	[SerializeField] float _delayReduction;
 
+	[Header("Sell")]
+	[Range(0,1)] [SerializeField] float _sellPercentage;
+
 	TurretProjectile _turretProjectile;
+
+	public float SellPercentage { get; set; }
 
 	public int  UpgradeCost { get; set; }
 
@@ -30,6 +35,7 @@ public class TurretUpgrade : MonoBehaviour
 		_turretProjectile = GetComponent<TurretProjectile>();
 		UpgradeCost = _initialUpgradeCost;
 		Level = 1;
+		SellPercentage = _sellPercentage;
 	}
 	#endregion
 
@@ -43,6 +49,11 @@ public class TurretUpgrade : MonoBehaviour
 			_turretProjectile.DelayPerShot -= _delayReduction;
 			UpdateUpgrade();
 		}
+	}
+
+	public int GetSellValue()
+	{
+		return Mathf.RoundToInt(UpgradeCost * SellPercentage);
 	}
 	#endregion
 

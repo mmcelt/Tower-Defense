@@ -309,6 +309,7 @@ MonoBehaviour:
   _incrementalUpgradeCost: 0
   _damageIncremental: 0
   _delayReduction: 0
+  _sellPercentage: 0.5
 --- !u!1 &5060535660044835314
 GameObject:
   m_ObjectHideFlags: 0
