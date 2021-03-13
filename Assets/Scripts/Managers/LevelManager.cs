@@ -3,15 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
 	[SerializeField] int lives = 10;
 
 	public int TotalLives { get; set; }
 
+	public int CurrentWave { get; set; }
+
+	void OnEnable()
+	{
+		Enemy.OnEndReached += ReduceLives;
+		Spawner.OnWaveCompleted += WaveCompleted;
+	}
+
+	void OnDisable()
+	{
+		Enemy.OnEndReached -= ReduceLives;
+		Spawner.OnWaveCompleted -= WaveCompleted;
+	}
+
 	void Start()
 	{
 		TotalLives = lives;
+		CurrentWave = 1;
 	}
 
 	void ReduceLives(Enemy enemy)
@@ -24,13 +39,8 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	void OnEnable()
+	void WaveCompleted()
 	{
-		Enemy.OnEndReached += ReduceLives;
-	}
-
-	void OnDisable()
-	{
-		Enemy.OnEndReached -= ReduceLives;
+		CurrentWave++;
 	}
 }

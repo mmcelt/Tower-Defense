@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-	[SerializeField] float attackRange = 3f;
+	[SerializeField] float _attackRange = 3f;
 
 	public Enemy CurrentEnemyTarget { get; set; }
 
 	public TurretUpgrade TurretUpgrade { get; set; }
+
+	public float AttackRange => _attackRange;
 
 	bool _gameStarted;
 	List<Enemy> _enemies;
@@ -75,9 +77,9 @@ public class Turret : MonoBehaviour
 	{
 		if (!_gameStarted)
 		{
-			GetComponent<CircleCollider2D>().radius = attackRange;
+			GetComponent<CircleCollider2D>().radius = _attackRange;
 		}
 
-		Gizmos.DrawWireSphere(transform.position, attackRange);
+		Gizmos.DrawWireSphere(transform.position, _attackRange);
 	}
 }

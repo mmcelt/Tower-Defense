@@ -15,6 +15,9 @@ public class UIManager : Singleton<UIManager>
 	[SerializeField] TextMeshProUGUI _upgradeCostText;
 	[SerializeField] TextMeshProUGUI _sellPriceText;
 	[SerializeField] TextMeshProUGUI _turretLevelText;
+	[SerializeField] TMP_Text _livesText;
+	[SerializeField] TMP_Text _coinsText;
+	[SerializeField] TMP_Text _currentWaveText;
 
 	Node _currentSelectedNode;
 
@@ -36,6 +39,13 @@ public class UIManager : Singleton<UIManager>
 	{
 		Node.OnNodeSelected -= NodeSelected;
 	}
+
+	void Update()
+	{
+		_coinsText.text = CurrencyManager.Instance.TotalCoins.ToString();
+		_livesText.text = LevelManager.Instance.TotalLives.ToString();
+		_currentWaveText.text = $"Wave: {LevelManager.Instance.CurrentWave}";
+	}
 	#endregion
 
 	#region Public Methods
@@ -43,6 +53,12 @@ public class UIManager : Singleton<UIManager>
 	public void CloseTurretShopPanel()
 	{
 		_turretShopPanel.SetActive(false);
+	}
+
+	public void CloseNodeUIPanel()
+	{
+		_currentSelectedNode.CloseAttackRangeSprite();
+		_nodeUIPanel.SetActive(false);
 	}
 
 	public void UpgradeTurret()

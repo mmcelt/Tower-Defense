@@ -12,6 +12,8 @@ public enum SpawnModes
 
 public class Spawner : MonoBehaviour
 {
+	public static Action OnWaveCompleted;
+
 	[Header("Settings")]
 	[SerializeField] SpawnModes spawnMode = SpawnModes.Fixed;
 	[SerializeField] int enemyCount = 10;
@@ -98,6 +100,7 @@ public class Spawner : MonoBehaviour
 		_enemiesRamaining--;
 		if (_enemiesRamaining <= 0)
 		{
+			OnWaveCompleted?.Invoke();
 			StartCoroutine(NextWave());
 		}
 	}
