@@ -14,32 +14,4 @@ public class Achievement : ScriptableObject
 	public Sprite Sprite;
 	
 	#endregion
-
-	#region Getters
-
-
-	#endregion
-
-	#region Unity Methods
-
-	void Start() 
-	{
-		
-	}
-	
-	void Update() 
-	{
-		
-	}
-	#endregion
-
-	#region Public Methods
-
-
-	#endregion
-
-	#region Private Methods
-
-
-	#endregion
 }
