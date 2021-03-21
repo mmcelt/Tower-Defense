@@ -13,6 +13,8 @@ public class Achievement : ScriptableObject
 	public int GoldReward;
 	public Sprite Sprite;
 
+	public bool IsUnlocked { get; set; }
+
 	int _currentProgress;
 
 	#endregion
@@ -21,6 +23,7 @@ public class Achievement : ScriptableObject
 
 	void OnEnable()
 	{
+		IsUnlocked = false;
 		_currentProgress = 0;
 	}
 	#endregion
@@ -38,6 +41,11 @@ public class Achievement : ScriptableObject
 	{
 		return $"{_currentProgress}/{ProgressToUnlock}";
 	}
+
+	public string GetProgressCompleted()
+	{
+		return $"{ProgressToUnlock}/{ProgressToUnlock}";
+	}
 	#endregion
 
 	#region Private Methods
@@ -52,6 +60,7 @@ public class Achievement : ScriptableObject
 
 	void UnlockAchievement()
 	{
+		IsUnlocked = true;
 		AchievementManager.OnAchievementUnlocked?.Invoke(this);
 	}
 	#endregion

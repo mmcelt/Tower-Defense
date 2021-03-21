@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Kill20
   Title: Noob Killer
-  ProgressToUnlock: 20
+  ProgressToUnlock: 2
   GoldReward: 20
   Sprite: {fileID: -7323193574722330665, guid: 5d1c01f3b781797499ac4d521a2c3458, type: 3}

@@ -12,6 +12,7 @@ public class AchievementCard : MonoBehaviour
 	[SerializeField] TMP_Text _titleText;
 	[SerializeField] TMP_Text _progressText;
 	[SerializeField] TMP_Text _rewardText;
+	[SerializeField] Button _rewardButton;
 
 	public Achievement AchievementLoaded { get; set; }
 
@@ -26,12 +27,16 @@ public class AchievementCard : MonoBehaviour
 
 	void OnEnable() 
 	{
+		CheckRewardButtonStatus();
+		LoadAchievementProgress();
 		AchievementManager.OnProgressUpdated += UpdateProgress;
+		AchievementManager.OnAchievementUnlocked += AchievementUnlocked;
 	}
 	
 	void OnDisable() 
 	{
 		AchievementManager.OnProgressUpdated -= UpdateProgress;
+		AchievementManager.OnAchievementUnlocked -= AchievementUnlocked;
 	}
 	#endregion
 
@@ -45,6 +50,15 @@ public class AchievementCard : MonoBehaviour
 		_progressText.text = achievement.GetProgress();
 		_rewardText.text = achievement.GoldReward.ToString();
 	}
+
+	public void GetReward()
+	{
+		if (AchievementLoaded.IsUnlocked)
+		{
+			CurrencyManager.Instance.AddCoins(AchievementLoaded.GoldReward);
+			_rewardButton.gameObject.SetActive(false);
+		}
+	}
 	#endregion
 
 	#region Private Methods
@@ -53,8 +67,31 @@ public class AchievementCard : MonoBehaviour
 	{
 		if (AchievementLoaded == achievementWithProgress)
 		{
-			_progressText.text = achievementWithProgress.GetProgress();
+			LoadAchievementProgress();
 		}
+	}
+	void AchievementUnlocked(Achievement achievementUnlocked)
+	{
+		if (AchievementLoaded == achievementUnlocked)
+		{
+			CheckRewardButtonStatus();
+		}
+	}
+
+	void CheckRewardButtonStatus()
+	{
+		if (AchievementLoaded.IsUnlocked)
+			_rewardButton.interactable = true;
+		else
+			_rewardButton.interactable = false;
+	}
+
+	void LoadAchievementProgress()
+	{
+		if (AchievementLoaded.IsUnlocked)
+			_progressText.text = AchievementLoaded.GetProgressCompleted();
+		else
+			_progressText.text = AchievementLoaded.GetProgress();
 	}
 	#endregion
 }

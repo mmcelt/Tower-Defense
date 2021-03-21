@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Waves10
   Title: Bronze Wave Defender
-  ProgressToUnlock: 10
+  ProgressToUnlock: 3
   GoldReward: 20
   Sprite: {fileID: 6658701557034754128, guid: 5d1c01f3b781797499ac4d521a2c3458, type: 3}

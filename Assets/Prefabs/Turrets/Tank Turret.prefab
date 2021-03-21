@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092b71118b5da07438c8ee41a79c1772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 6
+  _attackRange: 3
 --- !u!114 &5724504614298568287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879f173bf5a27e4c83c5ec55baff9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialUpgradeCost: 0
-  _incrementalUpgradeCost: 0
-  _damageIncremental: 0
-  _delayReduction: 0
+  _initialUpgradeCost: 50
+  _incrementalUpgradeCost: 100
+  _damageIncremental: 20
+  _delayReduction: 0.5
   _sellPercentage: 0.5
