@@ -26,16 +26,33 @@ public class Spawner : MonoBehaviour
 	[SerializeField] float minRandomDelay;
 	[SerializeField] float maxRandomDelay;
 
+	[Header("Poolers")]
+	[SerializeField] ObjectPooler _enemyWave10Pooler;
+	[SerializeField] ObjectPooler _enemyWave20Pooler;
+	[SerializeField] ObjectPooler _enemyWave30Pooler;
+	[SerializeField] ObjectPooler _enemyWave40Pooler;
+	[SerializeField] ObjectPooler _enemyWave50Pooler;
+
 	float _spawnTimer;
 	int _enemiesSpawned;
 	int _enemiesRamaining;
 
-	ObjectPooler _pooler;
 	Waypoint _waypoint;
+
+	void OnEnable()
+	{
+		Enemy.OnEndReached += RecordEnemy;
+		EnemyHealth.OnEnemyKilled += RecordEnemy;
+	}
+
+	void OnDisable()
+	{
+		Enemy.OnEndReached -= RecordEnemy;
+		EnemyHealth.OnEnemyKilled -= RecordEnemy;
+	}
 
 	void Start()
 	{
-		_pooler = GetComponent<ObjectPooler>();
 		_waypoint = GetComponent<Waypoint>();
 
 		_enemiesRamaining = enemyCount;
@@ -57,7 +74,7 @@ public class Spawner : MonoBehaviour
 
 	void SpawnEnemy()
 	{
-		GameObject newInstance = _pooler.GetInstanceFromPool();
+		GameObject newInstance = GetPooler().GetInstanceFromPool();
 		Enemy enemy = newInstance.GetComponent<Enemy>();
 		enemy.Waypoint = _waypoint;
 		enemy.ResetEnemy();
@@ -105,15 +122,18 @@ public class Spawner : MonoBehaviour
 		}
 	}
 
-	void OnEnable()
+	ObjectPooler GetPooler()
 	{
-		Enemy.OnEndReached += RecordEnemy;
-		EnemyHealth.OnEnemyKilled += RecordEnemy;
-	}
-
-	void OnDisable()
-	{
-		Enemy.OnEndReached -= RecordEnemy;
-		EnemyHealth.OnEnemyKilled -= RecordEnemy;
+		int currentWave = LevelManager.Instance.CurrentWave;
+		if (currentWave <= 10)									//1-10
+			return _enemyWave10Pooler;
+		else if (currentWave > 10 && currentWave <= 20)	//11-20
+			return _enemyWave20Pooler;
+		else if (currentWave > 20 && currentWave <= 30)	//21-30
+			return _enemyWave30Pooler;
+		else if (currentWave > 30 && currentWave <= 40)	//31-40
+			return _enemyWave40Pooler;
+		else
+			return _enemyWave50Pooler;							//>40
 	}
 }
