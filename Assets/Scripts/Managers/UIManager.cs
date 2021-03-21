@@ -10,6 +10,7 @@ public class UIManager : Singleton<UIManager>
 	[Header("Panels")]
 	[SerializeField] GameObject _turretShopPanel;
 	[SerializeField] GameObject _nodeUIPanel;
+	[SerializeField] GameObject _achievementPanel;
 
 	[Header("Texts")]
 	[SerializeField] TextMeshProUGUI _upgradeCostText;
@@ -59,6 +60,11 @@ public class UIManager : Singleton<UIManager>
 	{
 		_currentSelectedNode.CloseAttackRangeSprite();
 		_nodeUIPanel.SetActive(false);
+	}
+
+	public void OpenAchievementPanel(bool status)
+	{
+		_achievementPanel.SetActive(status);
 	}
 
 	public void UpgradeTurret()

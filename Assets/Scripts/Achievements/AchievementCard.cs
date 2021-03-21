@@ -13,6 +13,8 @@ public class AchievementCard : MonoBehaviour
 	[SerializeField] TMP_Text _progressText;
 	[SerializeField] TMP_Text _rewardText;
 
+	public Achievement AchievementLoaded { get; set; }
+
 	#endregion
 
 	#region Getters
@@ -22,14 +24,14 @@ public class AchievementCard : MonoBehaviour
 
 	#region Unity Methods
 
-	void Start() 
+	void OnEnable() 
 	{
-		
+		AchievementManager.OnProgressUpdated += UpdateProgress;
 	}
 	
-	void Update() 
+	void OnDisable() 
 	{
-		
+		AchievementManager.OnProgressUpdated -= UpdateProgress;
 	}
 	#endregion
 
@@ -37,15 +39,22 @@ public class AchievementCard : MonoBehaviour
 
 	public void SetupAchievement(Achievement achievement)
 	{
+		AchievementLoaded = achievement;
 		_achievementImage.sprite = achievement.Sprite;
 		_titleText.text = achievement.Title;
-		_progressText.text = $"0/{achievement.ProgressToUnlock}";
+		_progressText.text = achievement.GetProgress();
 		_rewardText.text = achievement.GoldReward.ToString();
 	}
 	#endregion
 
 	#region Private Methods
 
-
+	void UpdateProgress(Achievement achievementWithProgress)
+	{
+		if (AchievementLoaded == achievementWithProgress)
+		{
+			_progressText.text = achievementWithProgress.GetProgress();
+		}
+	}
 	#endregion
 }
