@@ -81,6 +81,21 @@ public class UIManager : Singleton<UIManager>
 		_currentSelectedNode = null;
 		_nodeUIPanel.SetActive(false);
 	}
+
+	public void SlowTime()
+	{
+		Time.timeScale = 0.5f;
+	}
+
+	public void ResumeTime()
+	{
+		Time.timeScale = 1.0f;
+	}
+
+	public void FastTime()
+	{
+		Time.timeScale = 2.0f;
+	}
 	#endregion
 
 	#region Private Methods
