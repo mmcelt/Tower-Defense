@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6899899902767964423}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.855, z: 0}
+  m_LocalPosition: {x: 0, y: 0.749, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6026194480636546363}
@@ -187,7 +187,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.69, y: 2.18}
+    oldSize: {x: 2.1015625, y: 1.703125}
     newSize: {x: 2.69, y: 2.18}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -269,5 +269,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 7085159743521070294, guid: fb659a9bec055124fab38ba6e61b05b4, type: 3}
   barPosition: {fileID: 8731764048271892439}
-  initialHealth: 25
-  maxHealth: 25
+  initialHealth: 40
+  maxHealth: 40

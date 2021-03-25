@@ -27,6 +27,7 @@ public class LevelManager : Singleton<LevelManager>
 	{
 		TotalLives = lives;
 		CurrentWave = 1;
+		Time.timeScale = 1.0f;
 	}
 
 	void ReduceLives(Enemy enemy)
@@ -36,7 +37,13 @@ public class LevelManager : Singleton<LevelManager>
 		{
 			TotalLives = 0;
 			// Game Over
+			GameOver();
 		}
+	}
+
+	void GameOver()
+	{
+		UIManager.Instance.ShowGameOverPanel();
 	}
 
 	void WaveCompleted()
